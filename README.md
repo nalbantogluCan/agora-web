@@ -7,11 +7,11 @@ dependencies. Editing a file and pushing it is the whole deployment process.
 ```
 docs/
 ├── index.html           Support page: contact details + FAQ        (EN)
-├── privacy.html         Privacy policy (GDPR + KVKK)               (EN)
+├── privacy.html         Privacy policy (GDPR)                      (EN)
 ├── delete-account.html  Account deletion instructions              (EN)
 ├── tr/
 │   ├── index.html       Destek: iletişim + SSS                     (TR)
-│   ├── privacy.html     Gizlilik Politikası (GDPR + KVKK)          (TR)
+│   ├── privacy.html     Gizlilik Politikası (GDPR)                 (TR)
 │   └── delete-account.html  Hesap silme yönergeleri                (TR)
 ├── style.css            The only stylesheet, shared by all six pages
 ├── .nojekyll            Serve the files as they are, without Jekyll
@@ -128,7 +128,7 @@ will always give you the current list.
 ### Must confirm before submitting
 
 - **Legal name.** The site says `Can Nalbantoğlu` in the copyright line, in the
-  GDPR controller section, and in the KVKK section. It must match the name on
+  GDPR controller section. It must match the name on
   the Apple Developer account. If that account is a company, replace the name
   everywhere and adjust "an individual developer" in `privacy.html`.
 - **Support email.** `agora.exchange14@gmail.com`, taken from
@@ -185,9 +185,11 @@ appears, or a reviewer reading both will find a contradiction.
   still finds the whole list. The figures that appear in more than one place —
   the 90-day and 12-month retention windows, the effective date, the 2-business-day
   reply — are the ones worth re-checking after an edit.
-- **The Turkish KVKK text is the one that counts.** `tr/privacy.html#kvkk` is
-  what a Turkish reader, or the Kurum, would actually rely on. If you get any
-  legal text reviewed locally, make it that section.
+- **There is no KVKK section any more.** It was removed on 2026-08-19 at the
+  owner's request. KVKK still applies to processing carried out from Türkiye —
+  removing the text changed the disclosure, not the obligation — so if you ever
+  reinstate it, `git log -- privacy.html` has the original wording in both
+  languages.
 
 ---
 
