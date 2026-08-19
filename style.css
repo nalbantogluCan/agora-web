@@ -1,54 +1,67 @@
-/* Agora support site — one stylesheet, no build step, no external assets. */
+/* Agora support site — one stylesheet, no build step, no external assets.
+   Tuned to match the app: Helvetica, the #F4F2F1 / white card surfaces from
+   src/theme/colors.ts, the #2D2D53 brand indigo, 16px radii, soft shadows,
+   extrabold headings and wide-tracked uppercase labels. */
 
 :root {
   color-scheme: light dark;
 
-  /* Paper and ink. Warm neutrals, so the page reads like a printed page. */
-  --paper:        #fbf6ec;
-  --paper-raised: #fffdf8;
-  --ink:          #241e19;
-  --ink-soft:     #56493f;
-  --ink-faint:    #786b5d;
-  --rule:         #e3d7c4;
-  --rule-strong:  #cbb99e;
+  /* Surfaces — lightColors in src/theme/colors.ts */
+  --bg:      #f4f2f1;   /* background1 */
+  --bg-alt:  #e9e4e2;   /* background2 */
+  --card:    #ffffff;   /* card        */
 
-  /* Wood, used only for the plank rule under the masthead. */
-  --wood:      #8a5a33;
-  --wood-dark: #6b4526;
+  /* Text. textPrimary is the app's exact value; the two greys below are the
+     app's slate family darkened to clear WCAG AA — #6B7280 lands at 4.33 and
+     #9CA3AF at 2.28 against this background, which is fine at phone reading
+     distance and not fine on the web. */
+  --ink:       #111827;
+  --ink-soft:  #4b5563;
+  --ink-faint: #646b78;
 
-  /* Single accent, taken from the app's brand indigo (#2D2D53). */
+  /* Lines. The app's border token, kept for rules and dividers only. */
+  --rule:        #e5e7eb;
+  --rule-strong: #d6d9de;
+
+  /* Brand — colors.brand / tailwind primary */
   --accent:       #2d2d53;
-  --accent-hover: #16162e;
-  --accent-wash:  #ecebf3;
+  --accent-hover: #1c1c38;
+  --accent-wash:  #eaeaf1;
 
-  --focus: #b4531d;
+  --focus: #2d2d53;
 
-  --font-read: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua",
-               Georgia, "Times New Roman", serif;
-  --font-ui:   -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-               "Helvetica Neue", Arial, sans-serif;
+  --shadow: 0 4px 14px rgba(17, 24, 39, 0.05);
+  --radius: 16px;
+  --radius-sm: 12px;
+
+  /* The app sets Helvetica as the default font family for every Text node
+     (src/app/_layout.tsx). */
+  --font: "Helvetica Neue", Helvetica, Arial, "Segoe UI", Roboto, sans-serif;
 
   --measure: 65ch;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --paper:        #15120e;
-    --paper-raised: #1e1a15;
-    --ink:          #f1e8db;
-    --ink-soft:     #c8baa8;
-    --ink-faint:    #9b8d7e;
-    --rule:         #352b21;
-    --rule-strong:  #4a3d2f;
+    /* darkColors in src/theme/colors.ts */
+    --bg:      #0f1115;
+    --bg-alt:  #171a21;
+    --card:    #1b1f2a;
 
-    --wood:      #a06c40;
-    --wood-dark: #6b4526;
+    --ink:       #f9fafb;
+    --ink-soft:  #d1d5db;
+    --ink-faint: #9ca3af;
 
-    --accent:       #a6a6e6;
-    --accent-hover: #c6c6f2;
-    --accent-wash:  #23213a;
+    --rule:        #2b3140;
+    --rule-strong: #3a4152;
 
-    --focus: #e8a06a;
+    --accent:       #8b8bd9;
+    --accent-hover: #a9a9e6;
+    --accent-wash:  #23233a;
+
+    --focus: #a9a9e6;
+
+    --shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
   }
 }
 
@@ -67,13 +80,12 @@ html {
 
 body {
   margin: 0;
-  background: var(--paper);
+  background: var(--bg);
   color: var(--ink);
-  font-family: var(--font-read);
+  font-family: var(--font);
   font-size: 1.0625rem;
-  line-height: 1.75;
-  /* Anchored headings clear the top of the viewport. */
-  text-rendering: optimizeLegibility;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* ── Skip link ─────────────────────────────────────────── */
@@ -85,15 +97,13 @@ body {
   background: var(--accent);
   color: #fff;
   padding: 0.6rem 1rem;
-  font-family: var(--font-ui);
   font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
   z-index: 10;
 }
 
-.skip-link:focus {
-  left: 0.5rem;
-  top: 0.5rem;
-}
+.skip-link:focus { left: 0.5rem; top: 0.5rem; }
 
 /* ── Layout ────────────────────────────────────────────── */
 
@@ -108,97 +118,135 @@ main {
   padding-bottom: 3rem;
 }
 
-section + section {
-  margin-top: 3.25rem;
-}
+section + section { margin-top: 3.25rem; }
 
 /* ── Masthead ──────────────────────────────────────────── */
 
 .masthead {
-  padding: 2.75rem 0 1.75rem;
-  /* The plank: a wood-toned rule with a little grain in it. */
-  border-bottom: 4px solid var(--wood);
-  background-image: repeating-linear-gradient(
-    90deg,
-    transparent 0 7px,
-    rgba(107, 69, 38, 0.05) 7px 8px
-  );
-  background-position: bottom;
-  background-size: 100% 4px;
-  background-repeat: no-repeat;
+  padding: 2.75rem 0 1.5rem;
+  background: var(--bg);
+  border-bottom: 1px solid var(--rule);
 }
 
 .masthead h1 {
-  font-size: 2.5rem;
-  line-height: 1.15;
-  letter-spacing: -0.015em;
+  font-size: 2.375rem;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
   margin: 0 0 0.5rem;
-  font-weight: 600;
+  font-weight: 800;
 }
 
 .masthead .lede {
   margin: 0 0 1.5rem;
   color: var(--ink-soft);
-  font-size: 1.125rem;
+  font-size: 1.0625rem;
 }
 
+/* The app's tracking-widest uppercase section labels. */
 .eyebrow {
-  font-family: var(--font-ui);
-  font-size: 0.75rem;
-  letter-spacing: 0.14em;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--ink-faint);
-  margin: 0 0 0.75rem;
+  color: var(--accent);
+  margin: 0 0 0.65rem;
 }
 
 /* ── Navigation ────────────────────────────────────────── */
+
+.navrow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+}
 
 .sitenav ul {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem 1.5rem;
+  gap: 0.5rem 0.5rem;
   margin: 0;
   padding: 0;
-  font-family: var(--font-ui);
   font-size: 0.9375rem;
 }
 
+/* Pills, the way the app renders its filter and status chips. */
 .sitenav a {
+  display: inline-block;
   text-decoration: none;
+  color: var(--ink-soft);
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.35rem 0.85rem;
+  font-weight: 600;
+}
+
+.sitenav a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.sitenav [aria-current="page"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.sitenav [aria-current="page"]:hover {
+  color: #fff;
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+.langswitch {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--ink-faint);
+}
+
+.langswitch .sep { color: var(--rule-strong); }
+
+.langswitch a {
+  text-decoration: none;
+  font-weight: 600;
   border-bottom: 1px solid var(--rule-strong);
   padding-bottom: 2px;
 }
 
-.sitenav a:hover { border-bottom-color: var(--accent); }
+.langswitch a:hover { border-bottom-color: var(--accent); }
 
-.sitenav [aria-current="page"] {
+.langswitch .current {
   color: var(--ink);
-  border-bottom-color: var(--wood);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 /* ── Headings ──────────────────────────────────────────── */
 
 h2 {
-  font-size: 1.625rem;
+  font-size: 1.5rem;
   line-height: 1.25;
-  font-weight: 600;
-  letter-spacing: -0.01em;
+  font-weight: 800;
+  letter-spacing: -0.02em;
   margin: 0 0 0.75rem;
   scroll-margin-top: 1.5rem;
 }
 
 h3 {
-  font-size: 1.1875rem;
+  font-size: 1.125rem;
   line-height: 1.35;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: -0.01em;
   margin: 2rem 0 0.5rem;
   scroll-margin-top: 1.5rem;
 }
 
 h4 {
-  font-family: var(--font-ui);
   font-size: 0.9375rem;
   font-weight: 700;
   margin: 1.5rem 0 0.4rem;
@@ -210,6 +258,7 @@ p { margin: 0 0 1rem; }
 
 a {
   color: var(--accent);
+  font-weight: 500;
   text-underline-offset: 0.18em;
   text-decoration-thickness: 1px;
 }
@@ -221,7 +270,7 @@ summary:focus-visible,
 .skip-link:focus-visible {
   outline: 3px solid var(--focus);
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: 4px;
 }
 
 /* ── Lists ─────────────────────────────────────────────── */
@@ -239,7 +288,7 @@ ol.steps {
 ol.steps > li {
   counter-increment: step;
   position: relative;
-  padding-left: 2.25rem;
+  padding-left: 2.5rem;
   margin-bottom: 0.9rem;
 }
 
@@ -247,43 +296,65 @@ ol.steps > li::before {
   content: counter(step);
   position: absolute;
   left: 0;
-  top: 0.15rem;
-  font-family: var(--font-ui);
+  top: 0.1rem;
   font-size: 0.8125rem;
-  font-weight: 700;
-  color: var(--accent);
-  background: var(--accent-wash);
-  width: 1.6rem;
-  height: 1.6rem;
-  line-height: 1.6rem;
+  font-weight: 800;
+  color: #fff;
+  background: var(--accent);
+  width: 1.75rem;
+  height: 1.75rem;
+  line-height: 1.75rem;
   text-align: center;
-  border-radius: 50%;
+  border-radius: 999px;
 }
 
-/* ── Contact block ─────────────────────────────────────── */
+/* ── Cards ─────────────────────────────────────────────── */
 
 .contact {
-  background: var(--paper-raised);
+  background: var(--card);
   border: 1px solid var(--rule);
-  border-left: 4px solid var(--wood);
-  padding: 1.25rem 1.25rem 0.5rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.25rem 1.25rem 0.6rem;
   margin: 0 0 1.25rem;
 }
 
 .contact .address {
-  font-family: var(--font-ui);
   font-size: 1.0625rem;
-  font-weight: 600;
+  font-weight: 700;
   word-break: break-word;
+}
+
+.note {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  background: var(--bg-alt);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 1rem 1.15rem;
+  margin: 1.25rem 0;
+}
+
+.note > *:last-child { margin-bottom: 0; }
+
+.meta {
+  font-size: 0.875rem;
+  color: var(--ink-faint);
+  margin: 0 0 2rem;
 }
 
 /* ── Question index ────────────────────────────────────── */
 
 .index-list {
   list-style: none;
-  padding: 0;
-  margin: 0 0 2rem;
-  border-top: 1px solid var(--rule);
+  padding: 0.35rem 0;
+  margin: 0 0 1.75rem;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
 }
 
 .index-list li {
@@ -291,33 +362,46 @@ ol.steps > li::before {
   border-bottom: 1px solid var(--rule);
 }
 
+.index-list li:last-child { border-bottom: none; }
+
 .index-list a {
   display: block;
-  padding: 0.6rem 0;
+  padding: 0.7rem 1.15rem;
   text-decoration: none;
-  font-family: var(--font-ui);
   font-size: 0.9375rem;
+  font-weight: 600;
 }
 
-.index-list a:hover { text-decoration: underline; }
+.index-list a:hover { background: var(--bg-alt); }
 
 /* ── FAQ entries ───────────────────────────────────────── */
 
 .qa {
-  border-bottom: 1px solid var(--rule);
-  padding-bottom: 1rem;
-  margin-bottom: 1.5rem;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 0.35rem 1.15rem 0.9rem;
+  margin-bottom: 0.9rem;
   scroll-margin-top: 1.5rem;
 }
 
 .qa > summary {
-  font-size: 1.1875rem;
-  font-weight: 600;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
   line-height: 1.35;
   cursor: pointer;
   list-style: none;
-  padding: 0.5rem 0 0.5rem 1.5rem;
+  padding: 0.75rem 0 0.6rem 1.5rem;
   position: relative;
+}
+
+.qa > summary h3 {
+  display: inline;
+  font: inherit;
+  letter-spacing: inherit;
+  margin: 0;
 }
 
 .qa > summary::-webkit-details-marker { display: none; }
@@ -325,92 +409,76 @@ ol.steps > li::before {
 .qa > summary::before {
   content: "";
   position: absolute;
-  left: 0.15rem;
-  top: 1.15rem;
-  width: 0.5rem;
-  height: 0.5rem;
-  border-right: 2px solid var(--wood);
-  border-bottom: 2px solid var(--wood);
+  left: 0.2rem;
+  top: 1.3rem;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-right: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
   transform: rotate(-45deg);
   transition: transform 0.15s ease;
 }
 
 .qa[open] > summary::before {
   transform: rotate(45deg);
-  top: 1rem;
+  top: 1.2rem;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .qa > summary::before { transition: none; }
 }
 
-.qa:target > summary { color: var(--accent); }
+.qa:target { border-color: var(--accent); }
 
 .qa-body > *:last-child { margin-bottom: 0; }
 
 .permalink {
-  font-family: var(--font-ui);
+  display: inline-block;
+  margin-top: 0.35rem;
   font-size: 0.8125rem;
+  font-weight: 600;
   color: var(--ink-faint);
   text-decoration: none;
-  border-bottom: 1px dotted var(--rule-strong);
+  border-bottom: 1px solid var(--rule-strong);
 }
 
 .permalink:hover { color: var(--accent); }
 
-/* ── Notes and callouts ────────────────────────────────── */
-
-.note {
-  font-family: var(--font-ui);
-  font-size: 0.9375rem;
-  line-height: 1.6;
-  color: var(--ink-soft);
-  background: var(--paper-raised);
-  border: 1px solid var(--rule);
-  padding: 0.9rem 1.1rem;
-  margin: 1.25rem 0;
-}
-
-.note > *:last-child { margin-bottom: 0; }
-
-.meta {
-  font-family: var(--font-ui);
-  font-size: 0.875rem;
-  color: var(--ink-faint);
-  margin: 0 0 2rem;
-}
-
-/* ── Definition-style data table ───────────────────────── */
+/* ── Tables ────────────────────────────────────────────── */
 
 .table-scroll {
   overflow-x: auto;
   margin: 1.25rem 0;
   border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  background: var(--card);
 }
 
 table {
   border-collapse: collapse;
   width: 100%;
   min-width: 32rem;
-  font-family: var(--font-ui);
   font-size: 0.9375rem;
   line-height: 1.55;
-  background: var(--paper-raised);
+  background: var(--card);
 }
 
 th, td {
   text-align: left;
   vertical-align: top;
-  padding: 0.7rem 0.85rem;
+  padding: 0.75rem 0.95rem;
   border-bottom: 1px solid var(--rule);
 }
 
 thead th {
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ink-faint);
-  border-bottom: 1px solid var(--rule-strong);
+  background: var(--bg-alt);
+  border-bottom: 1px solid var(--rule);
 }
 
 tbody tr:last-child td { border-bottom: none; }
@@ -421,7 +489,6 @@ tbody tr:last-child td { border-bottom: none; }
   border-top: 1px solid var(--rule);
   margin-top: 3.5rem;
   padding: 1.75rem 0 3rem;
-  font-family: var(--font-ui);
   font-size: 0.875rem;
   color: var(--ink-faint);
 }
@@ -435,6 +502,8 @@ tbody tr:last-child td { border-bottom: none; }
   margin: 0 0 1rem;
 }
 
+.sitefooter a { font-weight: 600; }
+
 .sitefooter p { margin: 0 0 0.35rem; }
 
 /* ── Small screens ─────────────────────────────────────── */
@@ -442,60 +511,17 @@ tbody tr:last-child td { border-bottom: none; }
 @media (max-width: 30rem) {
   body { font-size: 1rem; }
   .masthead { padding-top: 2rem; }
-  .masthead h1 { font-size: 2.125rem; }
-  h2 { font-size: 1.4375rem; }
-  .qa > summary { font-size: 1.0625rem; }
+  .masthead h1 { font-size: 2rem; }
+  h2 { font-size: 1.375rem; }
+  .qa { padding-left: 0.9rem; padding-right: 0.9rem; }
+  .qa > summary { font-size: 1rem; }
 }
 
 /* ── Print ─────────────────────────────────────────────── */
 
 @media print {
-  .sitenav, .skip-link, .index-list { display: none; }
+  .sitenav, .skip-link, .index-list, .langswitch { display: none; }
   body { background: #fff; color: #000; }
+  .qa, .contact, .table-scroll, .note { box-shadow: none; }
   .qa[open] > summary::before { display: none; }
-}
-
-/* A single heading is legal inside <summary>; it must not bring its own
-   block-level sizing along with it. */
-.qa > summary h3 {
-  display: inline;
-  font: inherit;
-  margin: 0;
-}
-
-/* ── Navigation row: site links, then the language switch ── */
-
-.navrow {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.75rem 1.5rem;
-}
-
-.langswitch {
-  display: flex;
-  align-items: baseline;
-  gap: 0.5rem;
-  margin: 0;
-  font-family: var(--font-ui);
-  font-size: 0.875rem;
-  color: var(--ink-faint);
-}
-
-.langswitch .sep {
-  color: var(--rule-strong);
-}
-
-.langswitch a {
-  text-decoration: none;
-  border-bottom: 1px solid var(--rule-strong);
-  padding-bottom: 2px;
-}
-
-.langswitch a:hover { border-bottom-color: var(--accent); }
-
-.langswitch .current {
-  color: var(--ink);
-  font-weight: 600;
 }
