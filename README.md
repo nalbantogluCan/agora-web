@@ -147,22 +147,27 @@ will always give you the current list.
   They are conventional figures, not measurements. Change them to what you
   actually intend, and change them in both files.
 
-### Inconsistencies with the app, worth fixing in the app
+### Facts stated in more than one place
 
-- **Minimum age.** The Terms (`src/app/settings/terms.tsx`) require users to be
-  17 or older and the App Store rating is 17+, but the in-app privacy policy
-  (`src/app/settings/privacy-policy.tsx`) says the app is "not directed to
-  children under 13". This site says 17+. Update the in-app text so the two
-  agree — a reviewer comparing them is a plausible scenario.
-- **Location precision.** The in-app policy says precise GPS coordinates are
-  not stored. `sql/location-geo.sql` adds `location_lat` and `location_lng` to
-  the profile and `src/lib/distance.ts` computes distances from them, so
-  coordinates *are* stored. This site describes it accurately; the in-app text
-  needs the same correction.
-- **Contact address.** The in-app Terms and Privacy Policy have historically
-  disagreed (`agora.exchange14@gmail.com` vs `support@agora.app`). This site
-  uses only the first. Worth a pass through the app to make sure nothing still
-  points at the other one.
+These are the sentences that exist in both the app and this site. They agreed
+as of the last edit; a change to any one of them has to be made everywhere it
+appears, or a reviewer reading both will find a contradiction.
+
+- **Minimum age — 16+**, the rating Apple assigned after the App Store Connect
+  questionnaire. Four places: `privacy.html` and `tr/privacy.html` (Children),
+  the in-app Terms (`src/app/settings/terms.tsx`, Eligibility) and the in-app
+  Privacy Policy (`src/app/settings/privacy-policy.tsx`, Children's Privacy).
+- **Location precision.** Both policies now say a place label *and* its
+  coordinates are stored, which is what `sql/location-geo.sql` and
+  `src/lib/distance.ts` actually do. Do not let either drift back to claiming
+  coordinates are not kept.
+- **Contact address — `agora.exchange14@gmail.com`**, and only that one. It
+  lives in `src/lib/support.ts` for the app and is hard-coded on all six pages
+  here. An older `support@agora.app` appears nowhere any more except in two
+  comments describing the history.
+- **Report triage within 24 hours**, promised in the in-app Terms and on the
+  support page. That one is a commitment about your behaviour rather than the
+  code's, and it is the easiest of these to quietly stop being true.
 
 ### Housekeeping
 
