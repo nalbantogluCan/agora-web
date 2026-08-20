@@ -45,7 +45,7 @@
   <div class="wrap">
 
     <p class="meta">
-      Yürürlük tarihi: 19 Ağustos 2026 · Agora iPhone uygulaması ve bu web sitesi için geçerlidir.
+      Yürürlük tarihi: 21 Ağustos 2026 · Agora iPhone uygulaması ve bu web sitesi için geçerlidir.
     </p>
 
     <section id="who-we-are" aria-labelledby="who-we-are-heading">
@@ -209,18 +209,6 @@
         bir hesap başka bir hesabın özel verilerini okuyamaz.
       </p>
 
-      <h3 id="railway">Railway — Agora API servisi</h3>
-      <!-- REVIEW THIS (mirrors privacy.html): the app calls an API service at
-           agora-backend-production-7d3a.up.railway.app. If that service has
-           been retired, delete this section in BOTH languages. -->
-      <p>
-        Bazı istekler — profil ve kitap verileri ile kapatılan takas istekleri —
-        doğrudan veritabanına değil, Railway üzerinde barındırılan kendi API
-        servisime gider. Bu servis yukarıda anlatılan verilerin aynısını işler,
-        kendinden bir şey eklemez. Railway Corp. barındırma sağlayıcısıdır ve
-        veri işleyen sıfatıyla hareket eder.
-      </p>
-
       <h3 id="expo-push">Expo — bildirim iletimi</h3>
       <p>
         Bildirimleri açarsanız, Expo'nun bildirim servisi bunları Apple'a, Apple
@@ -251,13 +239,14 @@
       <h3 id="other-users">Diğer okuyucular</h3>
       <p>
         Verilerinizin en geniş izleyicisi, uygulamayı kullanan diğer
-        insanlardır. Kullanıcı adınız, fotoğrafınız, biyografiniz, yer
-        etiketiniz, uzaklığınız, ilanlarınız ve istek listeniz oturum açmış diğer
-        okuyuculara görünür. Ayarlar → <strong>Gizlilik</strong> bölümünden
-        <strong>Gizli Hesap</strong>'ı açarsanız, kitaplarınızı ve istek
-        listenizi yalnızca onayladığınız takipçiler görebilir. Mesajlar,
-        gönderdiğiniz okuyucuya görünür. E-posta adresiniz, şifreniz ve açık
-        adresiniz hiç kimseye gösterilmez.
+        insanlardır. Kullanıcı adınız, fotoğrafınız, banner görseliniz ve
+        biyografiniz oturum açmış diğer okuyuculara görünür. İlanlarınız ve
+        istek listeniz de görünür; ancak Ayarlar → <strong>Gizlilik</strong>
+        bölümünden <strong>Gizli Hesap</strong>'ı açarsanız bunları yalnızca
+        onayladığınız takipçiler görebilir. Konum görünürlüğü daha sınırlıdır ve
+        aşağıda açıklanır. Mesajlar gönderdiğiniz okuyucuya görünür. E-posta
+        adresiniz, şifreniz, kesin koordinatlarınız ve açık adresiniz hiç
+        kimseye gösterilmez.
       </p>
 
       <h3 id="legal-disclosure">Hukuki talepler</h3>
@@ -270,9 +259,6 @@
 
     <section id="location" aria-labelledby="location-heading">
       <h2 id="location-heading">Konum, ayrıntılı olarak</h2>
-      <!-- REVIEW THIS (mirrors privacy.html): the in-app policy still claims
-           precise coordinates are not stored, which contradicts this. Fix the
-           in-app copy. -->
       <p>
         Bölge belirlemek, uygulamaya ilk girişin bir parçasıdır ve tek bir işe
         yarar: takas edilebilecek kadar yakındaki kitapları göstermek.
@@ -284,23 +270,24 @@
           siz onaylarsınız.
         </li>
         <li>
-          Saklanan şey bir yer etiketi — mahalle veya şehir adı — ve o noktanın
-          koordinatlarıdır. "3,2 km uzakta" ifadesini mümkün kılan şey bu
-          koordinatlardır.
+          Onayladığınız noktanın şehir etiketi ve koordinatları özel bir konum
+          kaydında saklanır. Bu ham kaydı yalnızca kendi hesabınız okuyabilir.
         </li>
         <li>
-          Diğer okuyucular etiketi ve yaklaşık bir uzaklığı görür.
-          Koordinatlarınız, sizi gösteren bir harita işareti veya açık adresiniz
-          onlara asla gösterilmez.
+          Sunucu bir şehir etiketi ve 10–15 km gibi beş kilometrelik yaklaşık
+          bir uzaklık aralığı döndürebilir. Oturum açmış okuyucular bunu herkese
+          açık hesaplar için alabilir; gizli hesaplar ise yalnızca iki kişi
+          birbirini takip ediyorsa paylaşır. Diğer okuyucu iki tarafın da
+          koordinatlarını hiçbir zaman almaz.
         </li>
         <li>
           Konum, siz belirlerken okunur; sürekli değil. Uygulama hareketlerinizi
           izlemez ve arka planda konum erişimi yoktur.
         </li>
         <li>
-          Bölgenizi profilinizi düzenleyerek dilediğiniz zaman
-          değiştirebilirsiniz; iOS Ayarları'ndan konum iznini tamamen
-          kaldırabilirsiniz.
+          Bölgenizi Profili Düzenle bölümünden, 24 saatlik değişiklik sınırına
+          tabi olarak değiştirebilirsiniz; iOS Ayarları'ndan konum iznini
+          tamamen kaldırabilirsiniz.
         </li>
       </ul>
       <p>
@@ -496,7 +483,7 @@
       </ul>
     </nav>
     <p>© 2026 Can Nalbantoğlu</p>
-    <p>Son güncelleme: 19 Ağustos 2026</p>
+    <p>Son güncelleme: 21 Ağustos 2026</p>
   </div>
 </footer>
 
