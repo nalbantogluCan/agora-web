@@ -44,7 +44,7 @@
   <div class="wrap">
 
     <p class="meta">
-      Effective 19 August 2026 · Applies to the Agora iPhone app and this website.
+      Effective 21 August 2026 · Applies to the Agora iPhone app and this website.
     </p>
 
     <section id="who-we-are" aria-labelledby="who-we-are-heading">
@@ -206,21 +206,6 @@
         account cannot read another's private data.
       </p>
 
-      <h3 id="railway">Railway — the Agora API service</h3>
-      <!-- REVIEW THIS: the app calls an API service at
-           agora-backend-production-7d3a.up.railway.app (app.json →
-           expo.extra.backendUrl, used via src/lib/orval-data.ts), which carries
-           some profile, book, and request traffic. Described here as a
-           processor. If that service has been retired, or if it runs somewhere
-           other than Railway now, correct or delete this section. -->
-      <p>
-        Some app requests — profile and book data, and dismissed trade requests
-        — go through an API service of mine hosted on Railway rather than
-        directly to the database. It handles the same data described above and
-        adds nothing of its own. Railway Corp. is the hosting provider and acts
-        as a processor.
-      </p>
-
       <h3 id="expo-push">Expo — push notification delivery</h3>
       <p>
         If you turn notifications on, Expo's push service delivers them to
@@ -250,12 +235,13 @@
       <h3 id="other-users">Other readers</h3>
       <p>
         The largest audience for your data is other people using the app. Your
-        username, photo, bio, place label, distance, listings, and wishlist are
-        visible to other signed-in readers. If you switch on
+        username, photo, banner, and bio are visible to other signed-in readers.
+        Your listings and wishlist are also visible unless you switch on
         <strong>Private Account</strong> in Settings → Privacy &amp; Visibility,
-        your books and wishlist are visible only to followers you have approved.
-        Messages are visible to the reader you sent them to. Your email address,
-        your password, and your exact address are never shown to anyone.
+        in which case they are visible only to followers you have approved.
+        Location visibility is narrower and is explained below. Messages are
+        visible to the reader you sent them to. Your email address, password,
+        exact coordinates, and street address are never shown to anyone.
       </p>
 
       <h3 id="legal-disclosure">Legal requests</h3>
@@ -268,12 +254,6 @@
 
     <section id="location" aria-labelledby="location-heading">
       <h2 id="location-heading">Location, in detail</h2>
-      <!-- REVIEW THIS: this describes what the code actually does — the profile
-           stores location_lat / location_lng alongside a place label
-           (sql/location-geo.sql) and distances are computed from those
-           coordinates (src/lib/distance.ts). The policy currently shipped
-           inside the app says precise coordinates are NOT stored, which
-           contradicts this. Fix the in-app copy so the two agree. -->
       <p>
         Setting an area is part of onboarding and it drives one feature: showing
         you books near enough to swap.
@@ -284,21 +264,23 @@
           yourself. Either way you confirm the result before it is saved.
         </li>
         <li>
-          What is stored is a place label — a neighbourhood or city name — and
-          the coordinates of that point. The coordinates are what make "3.2 km
-          away" possible.
+          A city label and the coordinates of the point you confirm are stored
+          in a private location record. Only your account can read that raw
+          record.
         </li>
         <li>
-          Other readers see the label and an approximate distance. They are
-          never shown your coordinates, a map pin of you, or a street address.
+          The server can return a city label and a coarse five-kilometre distance
+          band, such as 10–15 km. Signed-in readers can receive this for public
+          accounts; private accounts share it only when both people follow each
+          other. The other reader never receives either person's coordinates.
         </li>
         <li>
           Location is read when you set it, not continuously. The app does not
           track your movements and has no background location access.
         </li>
         <li>
-          You can change your area whenever you like by editing your profile,
-          and iOS Settings can revoke location permission entirely.
+          You can change your area from Edit Profile, subject to a 24-hour
+          change limit, and iOS Settings can revoke location permission entirely.
         </li>
       </ul>
       <p>
@@ -441,9 +423,7 @@
 
     <section id="transfers" aria-labelledby="transfers-heading">
       <h2 id="transfers-heading">International transfers</h2>
-      <!-- REVIEW THIS: name the actual hosting regions once you have checked
-           them in the Supabase and Railway dashboards. If both are in the EU,
-           say so — it simplifies this section considerably. -->
+      <!-- REVIEW THIS: name the actual Supabase hosting region once checked. -->
       <p>
         The providers listed above operate internationally, so your data may be
         stored or processed outside your own country, including outside the
@@ -496,7 +476,7 @@
       </ul>
     </nav>
     <p>© 2026 Can Nalbantoğlu</p>
-    <p>Last updated: 19 August 2026</p>
+    <p>Last updated: 21 August 2026</p>
   </div>
 </footer>
 
